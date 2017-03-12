@@ -65,8 +65,7 @@ extension RCPreferences {
     }
     
     func reset() {
-        for (key, value) in list() {
-            print("removing \(key) \(value)")
+        for (key, _) in list() {
             userDefaults.removeObject(forKey: key)
         }
         userDefaults.synchronize()
