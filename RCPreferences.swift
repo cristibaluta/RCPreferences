@@ -37,6 +37,13 @@ extension RCPreferences {
         return get(key) 
     }
     
+    /*
+     @param version: set the version of this setting
+     */
+    func bool (_ key: E, version: String) -> Bool {
+        return get(key, version: version) 
+    }
+    
     func int (_ key: E) -> Int {
         return get(key) 
     }
@@ -49,15 +56,15 @@ extension RCPreferences {
         return get(key) 
     }
     
-    func get<T> (_ key: E) -> T {
-        guard let oldValue = get(key.rawValue) else {
+    func get<T> (_ key: E, version: String = "") -> T {
+        guard let oldValue = get(key.rawValue + version) else {
             return key.defaultValue() as! T
         }
         return oldValue as! T
     }
     
-    func set (_ value: Any, forKey key: E) {
-        set(value, forKey: key.rawValue)
+    func set (_ value: Any, forKey key: E, version: String = "") {
+        set(value, forKey: key.rawValue + version)
     }
     
     func reset (_ key: E) {
