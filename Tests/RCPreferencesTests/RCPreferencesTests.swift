@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import ...
+@testable import RCPreferences
 
 class RCPreferencesTests: XCTestCase {
 
@@ -40,7 +40,7 @@ class RCPreferencesTests: XCTestCase {
         XCTAssertFalse(settings.bool(.option1))
         XCTAssert(settings.string(.option2) == "some string")
         XCTAssert(settings.int(.option3) == 4)
-        XCTAssert(settings.date(.option4).isSameDayAs(Date()))
+        XCTAssert(Calendar.current.isDate(settings.date(.option4), inSameDayAs:Date()))
     }
     
     func testWritingValues() {
