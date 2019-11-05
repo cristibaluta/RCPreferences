@@ -7,21 +7,16 @@
 
 import Foundation
 
-protocol RCPreferencesProtocol {
-    var rawValue: String {get}
-    func defaultValue() -> Any
-}
-
 class RCPreferences<E> where E: RCPreferencesProtocol {
     
-    fileprivate let prefix = "RCPreferences-"
-    fileprivate let userDefaults = UserDefaults.standard
+    private let prefix = "RCPreferences-"
+    private let userDefaults = UserDefaults.standard
     
-    fileprivate func get (_ key: String) -> Any? {
+    private func get (_ key: String) -> Any? {
         return userDefaults.object(forKey: prefix + key)
     }
     
-    fileprivate func set (_ value: Any?, forKey key: String) {
+    private func set (_ value: Any?, forKey key: String) {
         if let v = value {
             userDefaults.set(v, forKey: prefix + key)
         } else {
