@@ -24,6 +24,10 @@ public class RCPreferences<E> where E: RCPreferencesProtocol {
         }
         userDefaults.synchronize()
     }
+    
+    public init() {
+        
+    }
 }
 
 public extension RCPreferences {
