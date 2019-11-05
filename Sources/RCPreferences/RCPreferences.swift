@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RCPreferences<E> where E: RCPreferencesProtocol {
+public class RCPreferences<E> where E: RCPreferencesProtocol {
     
     private let prefix = "RCPreferences-"
     private let userDefaults = UserDefaults.standard
@@ -26,7 +26,7 @@ class RCPreferences<E> where E: RCPreferencesProtocol {
     }
 }
 
-extension RCPreferences {
+public extension RCPreferences {
     
     func bool (_ key: E) -> Bool {
         return get(key) 

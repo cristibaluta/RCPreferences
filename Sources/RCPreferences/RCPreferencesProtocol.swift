@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol RCPreferencesProtocol {
+public protocol RCPreferencesProtocol {
     var rawValue: String {get}
     func defaultValue() -> Any
 }
