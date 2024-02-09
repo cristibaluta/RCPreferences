@@ -7,6 +7,13 @@
 
 import Foundation
 
+public protocol RCPreferencesSupportedTypes {}
+extension String: RCPreferencesSupportedTypes {}
+extension [String]: RCPreferencesSupportedTypes {}
+extension Double: RCPreferencesSupportedTypes {}
+extension Int: RCPreferencesSupportedTypes {}
+extension Bool: RCPreferencesSupportedTypes {}
+
 public class RCPreferences<E> where E: RCPreferencesProtocol {
     
     private let prefix = "RCPreferences-"
@@ -15,7 +22,11 @@ public class RCPreferences<E> where E: RCPreferencesProtocol {
     private func get (_ key: String) -> Any? {
         return userDefaults.object(forKey: prefix + key)
     }
-    
+
+    private func getArray (_ key: String) -> [String]? {
+        return userDefaults.array(forKey: prefix + key) as? [String]
+    }
+
     private func set (_ value: Any?, forKey key: String) {
         if let v = value {
             userDefaults.set(v, forKey: prefix + key)
@@ -50,7 +61,11 @@ public extension RCPreferences {
     func string (_ key: E) -> String {
         return get(key) 
     }
-    
+
+    func strings (_ key: E) -> [String] {
+        return getArray(key.rawValue) ?? []
+    }
+
     func date (_ key: E) -> Date {
         return get(key) 
     }
@@ -62,10 +77,10 @@ public extension RCPreferences {
         return oldValue as! T
     }
     
-    func set (_ value: Any, forKey key: E, version: String = "") {
+    func set (_ value: RCPreferencesSupportedTypes, forKey key: E, version: String = "") {
         set(value, forKey: key.rawValue + version)
     }
-    
+
     func reset (_ key: E) {
         set(nil, forKey: key.rawValue)
     }
